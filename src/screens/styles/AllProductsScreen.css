@@ -1,0 +1,36 @@
+/* Style for the container */
+.options-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+/* Style for the select dropdowns */
+.brand-select,
+.sort-order-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.brand-select:hover,
+.sort-order-select:hover {
+  border-color: #007bff;
+}
+
+.brand-select:focus,
+.sort-order-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Style for the container of each select */
+.brand-select-container,
+.sort-order-container {
+  margin-bottom: 10px;
+}

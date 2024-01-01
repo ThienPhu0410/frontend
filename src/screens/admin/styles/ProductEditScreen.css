@@ -1,0 +1,47 @@
+/* ProductEditScreen.css */
+
+.product-edit-screen {
+    margin-top: 2rem;
+  }
+  
+  .product-edit-screen h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .product-edit-screen .btn-light {
+    margin-bottom: 1.5rem;
+  }
+  
+  .product-edit-screen form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .product-edit-screen form label {
+    font-weight: bold;
+  }
+  
+  .product-edit-screen form input,
+  .product-edit-screen form textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .product-edit-screen form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .product-edit-screen form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .product-edit-screen .loader {
+    margin-top: 2rem;
+  }
+  

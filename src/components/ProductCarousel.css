@@ -1,0 +1,24 @@
+
+/* Custom styles for ProductCarousel */
+
+.custom-carousel {
+    background-color: #f8f9fa; /* Set a background color */
+  }
+  
+  .custom-carousel-item {
+    text-align: center; /* Center align content within each carousel item */
+  }
+  
+  .custom-carousel-image {
+    max-height: 400px; /* Adjust the height as needed */
+    margin: 0 auto; /* Center the image horizontally */
+    border-radius: 8px; /* Add rounded corners for a nicer look */
+  }
+  
+  .custom-carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7); /* Add a semi-transparent background for the caption */
+    border-radius: 8px; /* Add rounded corners for the caption */
+    padding: 15px; /* Add padding to the caption */
+    color: #fff; /* Set text color */
+  }
+  

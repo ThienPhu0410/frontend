@@ -1,0 +1,214 @@
+/* GLOBAL */
+html, body{
+    font-family: 'Work Sans', sans-serif;
+}
+
+.heading{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.heading h2{
+    font-size: 40px;
+    color: #ff4f81;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.heading p{
+    text-transform: capitalize; /*in hoa chu cai dau tien cua moi tu*/
+    letter-spacing: 4px;
+    color: black;
+    font-size: 17px;
+    text-align: justify;
+}
+
+.heading p::after{ /*đường gạch ngang */
+    content: ' ';
+    width: 70px;
+    height: 2px;
+    background-color: black;
+    display: block;
+    margin: 20px auto; /*căn giữa đường gạch*/
+}
+
+.heading--white p{
+    color: white;
+}
+
+.section{
+    padding: 5rem 0;
+}
+
+
+/* NEWS */
+.news__content img{
+    border: 2px solid #dedede
+}
+
+.news__content h3{
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+.news__content a{
+    text-decoration: none;
+    color: #000;
+    letter-spacing: 1px;
+    transition: all 0.5s;
+}
+
+.news__content a:hover{
+    color: #ff4f81;
+}
+
+.news__content h4{
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #ff4f81;
+    margin: 1rem 0;
+}
+
+.news__content p{
+    color: black;
+    margin-top: 1rem;
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+    text-align: justify;
+}
+
+.news__content .row:last-child{
+    margin-top: 5rem;
+}
+
+
+/* FOOTER */
+footer{
+    background-color: #FBFBFB;
+}
+.footer__top h3{
+    color: rgba(0,0,0,.87);
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+.footer__top p{
+    color: #8b8b96;
+    font-size: 15px;
+    line-height: 2em;
+    margin-bottom: 2rem;
+    letter-spacing: 1px; 
+}
+
+.footer__link, .footer__contact{
+    margin-bottom: 1rem;
+}
+
+.footer__link i{
+    color:rgba(0,0,0,.87);
+    margin-right: 1rem;
+}
+
+.footer__link a, .footer__contact a{
+    color: #2c2c32;
+    text-decoration: none;
+    line-height: 1.5rem;
+    font-size: 15px;
+    letter-spacing: 1px;
+    transition: all 0.5s;
+}
+
+.footer__link a:hover, .footer__contact a:hover{
+    color: #ff4f81;
+}
+
+.footer__contact i{
+    width: 32px;
+    height: 32px;
+    border: 1px solid #4b4b50;
+    color: #4b4b50;
+    margin-right: 1rem;
+    text-align: center;
+    line-height: 32px;
+}
+
+.footer__form{
+    margin-top: 3rem;
+}
+
+.footer__form label{
+    color: rgba(0,0,0,.87);
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.footer__form input{
+    padding: 14px;
+    border-radius: 0;
+    border: solid #888 1px;
+    color: #888;
+    letter-spacing: 1px;
+    height: auto;
+}
+
+.footer__form button{
+    background-color: #ff4f81;
+    padding: 12px 35px;
+    letter-spacing: 1px;
+    border-radius: 0;
+    color: #fff;
+    outline: none;
+    transition: all 0.5s;
+}
+
+.footer__form button:hover{
+    background-color: #ec1955;
+    color: white;
+}
+
+.footer__bottom{
+    background-color: #0f0f10;
+    text-align: center;
+    padding: 1rem 0;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.footer__bottom a{
+    text-decoration: none;
+    color: #ff4f81;
+    transition: all 0.5s;
+}
+
+.footer__bottom a:hover{
+    color: #ff4f81;
+}
+
+/**************** RESPONSIVE ***************/
+/* HEADER */
+@media screen and (max-width:575.98px) {
+    .header__left a{
+        display: block;
+    }    
+}
+
+@media screen and (max-width:320px) {
+    .header__right{
+        width: 35%;
+        text-align: center;
+    }
+    .header__right a{
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:992px) {
+    #navbarInstruction .nav-link{
+        font-size: 12px;
+        padding: 5px;
+    }
+}

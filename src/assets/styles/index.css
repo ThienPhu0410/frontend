@@ -1,0 +1,71 @@
+/* Set main minimum height to 80% of viewport height */
+main {
+  min-height: 80vh;
+}
+
+/* Adjust the margin for the rating span */
+.rating span {
+  margin: 0.2rem;
+}
+
+/* Set the color for the rating svg */
+.rating svg {
+  color: #f8e825;
+}
+
+/* Style the rating text */
+.rating-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+
+/* Style the product title within product links */
+.product-link .product-title {
+  max-height: 2.5em; /* Set a maximum height */
+  overflow: hidden; /* Hide overflow content */
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Adjust product title on hover */
+.product-link:hover .product-title{
+  max-height: none;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+}
+
+/* Center align content in table cells */
+table td,
+table th {
+  text-align: center;
+}
+
+/* Style the review section */
+.review {
+  margin-top: 30px;
+}
+
+/* Adjust the style for the review heading */
+.review h2 {
+  font-size: 26px;
+  background-color: #f4f4f4;
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+/* Style the button within the review section */
+.review button {
+  margin-top: 12px;
+}
+
+/* Adjust the position and background of the carousel caption */
+.carousel-caption {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(49, 206, 64, 0.7);
+}

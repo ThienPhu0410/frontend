@@ -1,0 +1,125 @@
+/* styles.module.css */
+
+body, h1, h2, h3, p, margin, padding {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  position: relative;
+}
+
+.pageContainer {
+  position: relative;
+}
+
+.headingContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brandFilterContainer {
+  margin-top: 10px;
+  display: flex;
+}
+
+.brandFilterLabel {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.brandFilterSelect {
+  font-size: 14px;
+  padding: 8px;
+}
+
+.viewAllBtn {
+  margin-left: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.viewAllBtn:hover,
+.viewAllBtn:focus {
+  background-color: #0056b3;
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-primary.see-more-link {
+  margin-left: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary.see-more-link:hover,
+.btn-primary.see-more-link:focus {
+  background-color: #0056b3;
+  color: #fff;
+  text-decoration: none;
+}
+
+.brand-filter-label {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.brand-filter-select {
+  font-size: 14px;
+  padding: 8px;
+}
+
+.brand-filter-container {
+  margin-right: 10px;
+}
+
+.parallax-image {
+  position: fixed;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.text-center {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .btn-primary.see-more-link {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  .brand-filter-label {
+    margin-right: 0;
+  }
+}
+
+/* New styles for moving filters to the right */
+.filterContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Additional styles for spacing and layout */
+.customSelect {
+  /* Add your custom styles here */
+  /* For example: */
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  /* Add any additional custom styles as needed */
+}

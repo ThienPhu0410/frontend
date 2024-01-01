@@ -1,0 +1,109 @@
+/* LoginScreen.css */
+.login-form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .login-form input,
+  .login-form .password-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .login-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .login-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .login-form .mb-3 {
+    margin-bottom: 20px;
+  }
+  
+  .login-form a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login-form a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Additional styling for checkbox */
+  .login-form .password-toggle-checkbox {
+    margin-top: 5px; 
+  }
+  
+  /* Loader styles */
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .password-toggle-container {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .password-toggle-checkbox {
+    margin-right: 5px;
+  }
+  
+  .password-toggle-label {
+    font-size: 10px; /* Adjust the font size as needed */
+  }
+
+
+.password-toggle-checkbox {
+  margin-right: 5px;
+}
+
+.password-toggle-label {
+  margin-right: 50px; 
+}
+
+

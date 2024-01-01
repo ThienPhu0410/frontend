@@ -1,0 +1,28 @@
+.product-card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .product-title {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+    color: #007bff;
+  }
+  
+  .product-card:hover .product-title {
+    color: #ff4500;
+  }
