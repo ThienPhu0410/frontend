@@ -1,0 +1,30 @@
+/* Add this CSS to your component or a separate stylesheet */
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .FormContainer {
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto;
+  }
+
+  Form.Group {
+    margin-bottom: 20px;
+  }
+  
+  
+  Form.Control[type="file"] {
+    margin-top: 10px;
+  }
+  
+  Button[type="submit"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .Loader {
+    margin-top: 10px;
+  }
+  

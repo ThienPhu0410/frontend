@@ -43,7 +43,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
       }),
     }),
-    // Consistent naming convention (camelCase)
     getUserDetails: builder.query({
       query: ({ userId }) => ({
         url: `${USERS_URL}/${userId}`,
@@ -57,10 +56,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ['User'],
-      onError: (error) => {
-        console.error('Failed to update user:', error);
-        // Handle error, e.g., show a notification to the user
-      },
+      onError: handleUpdateUserError,
     }),
     forgotPassword: builder.mutation({
       query: ({ email }) => ({
@@ -71,7 +67,11 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
   }),
 });
-
+function handleUpdateUserError(error) {
+  console.error('Failed to update user:', error);
+  // Handle error, e.g., show a notification to the user
+}
+// Consistent naming convention (camelCase)
 export const {
   useLoginMutation,
   useLogoutMutation,
@@ -83,3 +83,4 @@ export const {
   useGetUserDetailsQuery,
   useForgotPasswordMutation,
 } = userApiSlice;
+

@@ -6,10 +6,16 @@ const initialState = localStorage.getItem('cart')
   : { cartItems: [], shippingAddress: {}, paymentMethod: 'PayPal' };
 
 const calculateDiscountedPrice = (price, discount) => {
+  if (typeof price !== 'number' || isNaN(price)) {
+    console.error('Invalid price:', price);
+    return 0; // or handle the error in an appropriate way
+  }
+
   if (discount) {
     const discountAmount = (discount / 100) * price;
     return (price - discountAmount).toFixed(2);
   }
+
   return price.toFixed(2);
 };
 
@@ -18,20 +24,23 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
+      // NOTE: we don't need user, rating, numReviews or reviews
+      // in the cart
       const { user, rating, numReviews, reviews, ...item } = action.payload;
 
       const existItem = state.cartItems.find((x) => x._id === item._id);
 
       if (existItem) {
         state.cartItems = state.cartItems.map((x) =>
-          x._id === existItem._id ? { ...item, price: calculateDiscountedPrice(item.price, item.discount) } : x
+          x._id === existItem._id ? item : x
         );
       } else {
-        state.cartItems = [...state.cartItems, { ...item, price: calculateDiscountedPrice(item.price, item.discount) }];
+        state.cartItems = [...state.cartItems, item];
       }
 
       return updateCart(state, item);
     },
+    
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
       return updateCart(state);

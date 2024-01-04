@@ -1,52 +1,90 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// UserEditScreen.js
+
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import FormContainer from '../../components/FormContainer';
-import { toast } from 'react-toastify';
-import { useParams } from 'react-router-dom';
-import {
-  useGetUserDetailsQuery,
-  useUpdateUserMutation,
-} from '../../slices/usersApiSlice';
+import axios from 'axios';
+import './styles/UserEditScreen.css'; 
 
 const UserEditScreen = () => {
   const { id: userId } = useParams();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-
-  const {
-    data: user,
-    isLoading,
-    error,
-    refetch,
-  } = useGetUserDetailsQuery(userId);
-
-  const [updateUser, { isLoading: loadingUpdate }] = useUpdateUserMutation();
+  const [image, setImage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loadingUpload, setLoadingUpload] = useState(false);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        setLoading(true);
+
+        const { data } = await axios.get(`/api/users/${userId}`);
+
+        setName(data.name);
+        setEmail(data.email);
+        setIsAdmin(data.isAdmin);
+        setImage(data.avatar || ''); // Assuming 'avatar' is the property for the user's image
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(error.response?.data?.message || error.message);
+      }
+    };
+
+    fetchUserDetails();
+  }, [userId]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
+
     try {
-      await updateUser({ userId, name, email, isAdmin });
-      toast.success('Người dùng cập nhập thành công');
-      refetch();
+      setLoading(true);
+
+      const { data } = await axios.put(`/api/users/${userId}`, {
+        name,
+        email,
+        isAdmin,
+        avatar: image, // Assuming 'avatar' is the property for the user's image
+      });
+
+      console.log('User updated successfully:', data);
       navigate('/admin/userlist');
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
+    } catch (error) {
+      setLoading(false);
+      setError(error.response?.data?.message || error.message);
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      setName(user.name);
-      setEmail(user.email);
-      setIsAdmin(user.isAdmin);
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        setLoadingUpload(true);
+
+        const { data } = await axios.post('/api/upload', formData);
+
+        setImage(data.image);
+
+        setLoadingUpload(false);
+      } catch (error) {
+        setLoadingUpload(false);
+        setError(error.response?.data?.message || error.message);
+      }
     }
-  }, [user]);
+  };
 
   return (
     <>
@@ -54,43 +92,56 @@ const UserEditScreen = () => {
         Go Back
       </Link>
       <FormContainer>
-        <h1>Cập nhập ngừoi dùng</h1>
-        {loadingUpdate && <Loader />}
-        {isLoading ? (
+        <h1>Edit User</h1>
+        {loading ? (
           <Loader />
         ) : error ? (
-          <Message variant='danger'>
-            {error?.data?.message || error.error}
-          </Message>
+          <Message variant='danger'>{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group className='my-2' controlId='name'>
-              <Form.Label>Tên</Form.Label>
+            <Form.Group controlId='name'>
+              <Form.Label>Name</Form.Label>
               <Form.Control
-                type='name'
-                placeholder='Nhập tên người dùng'
+                type='text'
+                placeholder='Enter name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
-            <Form.Group className='my-2' controlId='email'>
-              <Form.Label>Email</Form.Label>
+            <Form.Group controlId='email'>
+              <Form.Label>Email Address</Form.Label>
               <Form.Control
                 type='email'
-                placeholder='Mời nhập địa chỉ email'
+                placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
-            <Form.Group className='my-2' controlId='isadmin'>
+            <Form.Group controlId='isAdmin'>
               <Form.Check
                 type='checkbox'
-                label='Bạn là người quản trị'
+                label='Is Admin'
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
-              ></Form.Check>
+              />
+            </Form.Group>
+
+            <Form.Group controlId='image'>
+              <Form.Label>Avatar Image URL</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter avatar image URL'
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+              />
+              <Form.Control
+                label='Choose Avatar Image'
+                onChange={uploadFileHandler}
+                type='file'
+              />
+              {loadingUpload && <Loader />}
             </Form.Group>
 
             <Button type='submit' variant='primary'>

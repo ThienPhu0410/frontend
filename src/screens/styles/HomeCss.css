@@ -1,10 +1,50 @@
 /* styles.module.css */
 
-body, h1, h2, h3, p, margin, padding {
+body, h2, h3, p, margin, padding {
   margin: 0;
   padding: 0;
 }
+.heading-category {
+ 
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.heading-category h1 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 24px; 
+  text-transform: capitalize; 
+}
+
+.brand-filter{
+  margin-left:65rem;
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.brand-filter select {
+  margin-left: 8px;
+  padding: 6px;
+  border: 1px solid #3498db;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+}
+
+.brand-filter label {
+  color: #3498db;
+  font-weight: bold;
+  margin-right: 8px;
+}
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
@@ -24,16 +64,44 @@ body {
   align-items: center;
 }
 
+.brand-filter, .view-all {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-filter {
+  margin-right: 16px;
+  margin-left: 50rem;
+  padding: 8px;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.brand-filter select {
+  padding: 6px;
+  border: 1px solid #3498db;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+}
+
+.view-all {
+  text-decoration: none;
+  color: #ffffff;
+  margin-left:10px;
+  background-color: #3498db;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .brandFilterContainer {
   margin-top: 10px;
+  margin-inline-start: 45rem; /* Adjust this value as needed */
   display: flex;
 }
-
-.brandFilterLabel {
-  font-size: 14px;
-  margin-right: 10px;
-}
-
 .brandFilterSelect {
   font-size: 14px;
   padding: 8px;
@@ -52,7 +120,6 @@ body {
 }
 
 .btn-primary.see-more-link {
-  margin-left: 10px;
   padding: 10px 20px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -113,13 +180,44 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  margin-left: 1000px;
 }
 
 /* Additional styles for spacing and layout */
 .customSelect {
-  /* Add your custom styles here */
-  /* For example: */
   color: #333;
   font-family: 'Arial', sans-serif;
   /* Add any additional custom styles as needed */
+}
+.columnColor {
+  background-color: #FF0000; /* Màu đỏ - Hãy thay đổi theo ý muốn của bạn */
+  height: 100vh; /* Chiều cao tùy ý */
+  width: 10%; /* Chiều rộng tùy ý */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Đẩy nó xuống phía sau content */
+}
+.left-color {
+  height: 500px; 
+  width: 50px; 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+.left-color .img{
+  width:100px;
+}
+
+.right-color{
+  height: 500px; 
+  width: 100px; 
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+.right-color .img{
+  width:100px; 
 }

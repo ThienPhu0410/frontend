@@ -1,0 +1,135 @@
+/* OrderScreen.css */
+
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Order details section */
+  .order-details {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  /* Shipping details section */
+  .shipping-details {
+    flex: 0 0 48%;
+    margin-bottom: 20px;
+  }
+  
+  .shipping-details h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .shipping-details p {
+    margin: 0;
+  }
+  
+  /* Payment details section */
+  .payment-details {
+    flex: 0 0 48%;
+    margin-bottom: 20px;
+  }
+  
+  .payment-details h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .payment-details p {
+    margin: 0;
+  }
+  
+  /* Order items section */
+  .items-section {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .items-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .items-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .item img {
+    max-width: 70px;
+    margin-right: 15px;
+    border-radius: 4px;
+  }
+  
+  .item-details {
+    flex: 1;
+  }
+  
+  .item-quantity,
+  .item-price {
+    text-align: center;
+  }
+  
+  .item-price {
+    font-weight: bold;
+  }
+  
+  /* Order summary section */
+  .summary-section {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .summary-section:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary-content {
+    padding: 15px;
+  }
+  
+  .summary-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .order-details,
+    .shipping-details,
+    .payment-details,
+    .items-details,
+    .summary-details {
+      flex: 0 0 100%;
+    }
+  }
+  

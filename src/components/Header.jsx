@@ -1,4 +1,5 @@
-import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Nav, Container, NavDropdown, Badge, Image } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +9,8 @@ import { logout } from '../slices/authSlice';
 import { resetCart } from '../slices/cartSlice';
 import SearchBox from './SearchBox';
 import logo from '../assets/logo.png';
-
+import './styles/Header.css';
+import setting from '../assets/setting.png';
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
@@ -31,18 +33,26 @@ const Header = () => {
 
   return (
     <header>
-        <Navbar style={{ backgroundColor: '#ff4f81' }} variant='light' expand='lg' collapseOnSelect>        <Container>
-          <LinkContainer to='/'>
-            <Navbar.Brand>
-              <img src={logo} alt='ProShop' />
-            </Navbar.Brand>
-          </LinkContainer>
+      <Navbar style={{ backgroundColor: '#F5F5DC' }} variant='light' expand='lg' collapseOnSelect>
+        <Container>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+        
+            <LinkContainer to='/'>
+              <Navbar.Brand>
+                <img
+                  src={logo}
+                  alt='ProShop'
+                  style={{ width: '130px', height: '100px' }}
+                />
+              </Navbar.Brand>
+            </LinkContainer>
+          </div>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               <SearchBox />
               <LinkContainer to='/cart'>
-                <Nav.Link>
+                <Nav.Link className='cart'>
                   <FaShoppingCart /> Cart
                   {cartItems.length > 0 && (
                     <Badge pill bg='success' style={{ marginLeft: '5px' }}>
@@ -53,7 +63,7 @@ const Header = () => {
               </LinkContainer>
               {userInfo ? (
                 <>
-                  <NavDropdown title={userInfo.name} id='username'>
+                  <NavDropdown title={userInfo.name} id='avatar-dropdown'>
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
@@ -63,16 +73,14 @@ const Header = () => {
                   </NavDropdown>
                 </>
               ) : (
-                <LinkContainer to='/login'>
+                <LinkContainer to='/login' className='sign-in'>
                   <Nav.Link>
                     <FaUser /> Sign In
                   </Nav.Link>
                 </LinkContainer>
               )}
-
-              {/* Admin Links */}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
+                <NavDropdown title={<Image src={setting} roundedCircle width="30" height="30" />} id='adminmenu-dropdown'>
                   <LinkContainer to='/admin/productlist'>
                     <NavDropdown.Item>Products</NavDropdown.Item>
                   </LinkContainer>
@@ -93,3 +101,4 @@ const Header = () => {
 };
 
 export default Header;
+

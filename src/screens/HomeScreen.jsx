@@ -1,4 +1,4 @@
-// HomeScreen.jsx
+// Trong file JSX (HomeScreen.jsx)
 
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Carousel } from 'react-bootstrap';
@@ -12,7 +12,6 @@ import Meta from '../components/Meta';
 import styles from './styles/HomeCss.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-
 const HomeScreen = () => {
   const { data, isLoading, error, refetch } = useGetAllProductsQuery();
 
@@ -54,11 +53,9 @@ const HomeScreen = () => {
 
     return (
       <div className={styles.renderProductCarousel}>
-        <div className={styles.headingContainer}>
-          <h1>{category}</h1>
-        </div>
-        <div className={styles.container} style={{ }}>
-          <div className={styles.brandFilterContainer}>
+       
+        <div className={styles.container}>
+          <div className='brand-filter'>
             <label className={styles.brandFilterLabel}>Select Brand:</label>
             <select
               className={styles.brandFilterSelect}
@@ -76,11 +73,10 @@ const HomeScreen = () => {
               <option value="E-DRA">E-DRA</option>
               <option value="HP">HP</option>
             </select>
-          </div>
-
-          <Link to="/all" className={`btn btn-primary ${styles.viewAllBtn}`}>
+            <Link to="/all" className={`btn btn-primary view-all`}>
             View All Products
           </Link>
+          </div>     
         </div>
 
         <Carousel
@@ -91,6 +87,9 @@ const HomeScreen = () => {
           {[...Array(Math.ceil(categoryProducts.length / 4))].map((_, index) => (
             <Carousel.Item key={index}>
               <Row>
+              <div className='heading-category'>
+          <h1>{category}</h1>
+        </div>
                 {categoryProducts.slice(index * 4, (index + 1) * 4).map((product) => (
                   <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                     <Product product={product} />
@@ -106,8 +105,14 @@ const HomeScreen = () => {
 
   return (
     <>
+      <ProductCarousel />
+      <div className='left-color' >
+         </div>
+      <div class='right-color'>
+      </div>
       {!isLoading ? (
-        <ProductCarousel />
+        <div className={styles.columnColor}>
+        </div>
       ) : (
         <Link to="/" className="btn btn-light mb-4 mr-2">
           Go Back

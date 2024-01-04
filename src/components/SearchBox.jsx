@@ -30,7 +30,7 @@ const SearchBox = () => {
         placeholder='Search...'
         className='mr-sm-2 ml-sm-5 search-input'
       />
-      <Button type='submit' variant='outline-success' className='p-2 mx-2 search-button'>
+      <Button type='submit' variant='outline-success' className='p-2 mx-1 search-button'>
       Search
       </Button>
     </Form>

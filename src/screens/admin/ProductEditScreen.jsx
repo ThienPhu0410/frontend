@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import Message from '../../components/Message';
@@ -11,7 +11,8 @@ import {
   useUploadProductImageMutation,
 } from '../../slices/productsApiSlice';
 import './styles/ProductEditScreen.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 const ProductEditScreen = () => {
   const { id: productId } = useParams();
 
@@ -23,7 +24,7 @@ const ProductEditScreen = () => {
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
   const [discount, setDiscount] = useState(0);
-  const [specs, setSpecs] = useState({}); // Assuming specs is an object
+  const [specsInput, setSpecsInput] = useState({});
 
   const {
     data: product,
@@ -40,29 +41,6 @@ const ProductEditScreen = () => {
 
   const navigate = useNavigate();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      await updateProduct({
-        productId,
-        name,
-        price,
-        image,
-        brand,
-        category,
-        description,
-        countInStock,
-        discount,
-        specs,
-      }).unwrap();
-      toast.success('Product updated successfully');
-      refetch();
-      navigate('/admin/productlist');
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
-    }
-  };
-
   useEffect(() => {
     if (product) {
       setName(product.name);
@@ -73,7 +51,52 @@ const ProductEditScreen = () => {
       setCountInStock(product.countInStock);
       setDescription(product.description);
       setDiscount(product.discount);
-      setSpecs(product.specs || {});
+      setSpecsInput(product.specs || {});
+    }
+  }, [product]);
+
+  const handleRemoveSpec = (keyToRemove) => {
+    setSpecsInput((prevSpecs) => {
+      const { [keyToRemove]: removedSpec, ...restSpecs } = prevSpecs;
+      return restSpecs;
+    });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await updateProduct({
+        productId,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        description,
+        countInStock,
+        discount,
+        specsInput,
+      }).unwrap();
+
+      toast.success('Product updated successfully');
+      refetch();
+      navigate('/admin/productlist');
+    } catch (err) {
+      console.error('Update Product Error:', err);
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+  useEffect(() => {
+    if (product) {
+      setName(product.name);
+      setPrice(product.price);
+      setImage(product.image);
+      setBrand(product.brand);
+      setCategory(product.category);
+      setCountInStock(product.countInStock);
+      setDescription(product.description);
+      setDiscount(product.discount);
+      setSpecsInput(product.specs || {});
     }
   }, [product]);
 
@@ -85,6 +108,7 @@ const ProductEditScreen = () => {
       toast.success(res.message);
       setImage(res.image);
     } catch (err) {
+      console.error('Upload Image Error:', err);
       toast.error(err?.data?.message || err.error);
     }
   };
@@ -114,15 +138,14 @@ const ProductEditScreen = () => {
             </Form.Group>
 
             <Form.Group controlId='price'>
-              <Form.Label>Price</Form.Label>
+              <Form.Label>Product Price</Form.Label>
               <Form.Control
                 type='number'
-                placeholder='Enter price'
+                placeholder='Enter product price'
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group controlId='image'>
               <Form.Label>Image URL</Form.Label>
               <Form.Control
@@ -131,11 +154,7 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               />
-              <Form.Control
-                label='Choose Image'
-                onChange={uploadFileHandler}
-                type='file'
-              />
+            
               {loadingUpload && <Loader />}
             </Form.Group>
 
@@ -191,12 +210,44 @@ const ProductEditScreen = () => {
 
             <Form.Group controlId='specs'>
               <Form.Label>Specifications</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter specifications'
-                value={JSON.stringify(specs)}
-                onChange={(e) => setSpecs(JSON.parse(e.target.value))}
-              />
+              {Object.entries(specsInput).map(([key, value]) => (
+                <div key={key} className="spec-input-container">
+                  <span className="value-label">Enter key:</span>
+                  <Form.Control
+                    placeholder={`Enter key (e.g., CPU)`}
+                    value={key}
+                    onChange={(e) => {
+                      const newKey = e.target.value.trim();
+                      setSpecsInput((prevSpecs) => {
+                        const updatedSpecs = { ...prevSpecs };
+                        delete updatedSpecs[key];
+                        return { [newKey]: value, ...updatedSpecs };
+                      });
+                    }}
+                  />
+                  <span className="value-label">Enter value:</span>
+                  <Form.Control
+                    as='textarea'
+                    placeholder={`Enter value `}
+                    value={`${String(value || '')}`}
+                    onChange={(e) => {
+                      const newInputValue = e.target.value;
+                      setSpecsInput((prevSpecs) => ({
+                        ...prevSpecs,
+                        [key]: newInputValue.replace(/"/g, ''),
+                      }));
+                    }}
+                  />
+                  <Button variant="danger" style={{ marginBottom: '10px' }} onClick={() => handleRemoveSpec(key)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </Button>
+
+                </div>
+
+              ))}
+              <Button variant="primary" onClick={() => setSpecsInput((prevSpecs) => ({ ...prevSpecs, [`NewKey_${Date.now()}`]: '' }))} style={{ marginLeft: '0px' }}>
+                <FontAwesomeIcon icon={faPlus} /> Add
+              </Button>
             </Form.Group>
 
             <Button

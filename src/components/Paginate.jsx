@@ -1,27 +1,46 @@
-// Paginate.js
+import React from 'react';
 import { Pagination } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 import './styles/Paginate.css';
-const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
+const Paginate = ({ currentPage, totalPages, onPageChange }) => {
+  if (totalPages <= 1) {
+    return null; // Don't render pagination if there's only one page
+  }
+
+  const renderPageItems = () => {
+    const pageItems = [];
+    const visiblePages = 5; // Number of visible page numbers in the pagination
+
+    let startPage = currentPage - Math.floor(visiblePages / 2);
+    startPage = Math.max(startPage, 1);
+    const endPage = Math.min(startPage + visiblePages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageItems.push(
+        <Pagination.Item
+          key={i}
+          active={i === currentPage}
+          onClick={() => onPageChange(i)}
+        >
+          {i}
+        </Pagination.Item>
+      );
+    }
+
+    return pageItems;
+  };
+
   return (
-    pages > 1 && (
-      <Pagination className="custom-pagination">
-        {[...Array(pages).keys()].map((x) => (
-          <LinkContainer
-            key={x + 1}
-            to={
-              !isAdmin
-                ? keyword
-                  ? `/search/${keyword}/page/${x + 1}`
-                  : `/page/${x + 1}`
-                : `/admin/productlist/${x + 1}`
-            }
-          >
-            <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
-          </LinkContainer>
-        ))}
-      </Pagination>
-    )
+    <Pagination className="justify-content-center">
+      <Pagination.Prev
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      />
+      {renderPageItems()}
+      <Pagination.Next
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      />
+    </Pagination>
   );
 };
 

@@ -1,77 +1,94 @@
 /* RegisterScreen.css */
+
 .register-form {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-label {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .form-control {
-    font-size: 16px;
-    border-radius: 5px;
-  }
-  
-  .password-input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  
-  .password-toggle-container {
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
-  }
-  
-  .password-toggle-checkbox {
-    margin-right: 5px;
-  }
-  
-  .password-toggle-label {
-    font-size: 14px;
-    margin-bottom: 0;
-    color: #555;
-  }
-  
-  .submit-button {
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #007bff;
-    border: 1px solid #007bff;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-    border: 1px solid #0056b3;
-  }
-  
-  .link-to-login {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 16px;
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .link-to-login:hover {
-    text-decoration: underline;
-    color: #0056b3;
-  }
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-size: 16px;
+  color: #555;
+}
+
+.form-control {
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.password-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.password-toggle-container {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.password-toggle-checkbox {
+  margin-right: 5px;
+}
+
+.password-toggle-label {
+  font-size: 14px;
+  margin-bottom: 0;
+  color: #555;
+}
+
+.submit-button {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+  border: 1px solid #0056b3;
+}
+
+.link-to-login,
+.link-to-register {
+  text-align: center;  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link-to-login:hover,
+.link-to-register:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Add this style for both links to be on the same line */
+.link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

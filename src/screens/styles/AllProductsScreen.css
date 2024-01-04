@@ -2,9 +2,10 @@
 .options-container {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 20px;
 }
+.brand-select-label{
 
+}
 /* Style for the select dropdowns */
 .brand-select,
 .sort-order-select {
@@ -12,8 +13,8 @@
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin-left: 10px;
   cursor: pointer;
+  margin-left: 10px;
   transition: border-color 0.3s ease-in-out;
 }
 
@@ -33,4 +34,5 @@
 .brand-select-container,
 .sort-order-container {
   margin-bottom: 10px;
+  margin-left: 42rem;
 }

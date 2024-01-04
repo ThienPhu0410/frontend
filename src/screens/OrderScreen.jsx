@@ -1,5 +1,3 @@
-// ./src/screens/OrderScreen.jsx
-
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
@@ -14,7 +12,7 @@ import {
   useGetPaypalClientIdQuery,
   usePayOrderMutation,
 } from '../slices/ordersApiSlice';
-
+import './styles/OrderScreen.css';
 const OrderScreen = () => {
   const { id: orderId } = useParams();
 
@@ -27,8 +25,7 @@ const OrderScreen = () => {
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
 
-  const [deliverOrder, { isLoading: loadingDeliver }] =
-    useDeliverOrderMutation();
+  const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -41,21 +38,22 @@ const OrderScreen = () => {
   } = useGetPaypalClientIdQuery();
 
   useEffect(() => {
+    const loadPaypalScript = async () => {
+      try {
+        await paypalDispatch({
+          type: 'resetOptions',
+          value: {
+            'client-id': paypal.clientId,
+            currency: 'USD',
+          },
+        });
+        await paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+      } catch (error) {
+        console.error('Error resetting PayPal options:', error);
+      }
+    };
+
     if (!errorPayPal && !loadingPayPal && paypal && paypal.clientId) {
-      const loadPaypalScript = async () => {
-        try {
-          await paypalDispatch({
-            type: 'resetOptions',
-            value: {
-              'client-id': paypal.clientId,
-              currency: 'USD',
-            },
-          });
-          await paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-        } catch (error) {
-          console.error('Error resetting PayPal options:', error);
-        }
-      };
       if (order && !order.isPaid && !window.paypal) {
         loadPaypalScript();
       }
@@ -125,9 +123,7 @@ const OrderScreen = () => {
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
-                <Message variant='success'>
-                  Delivered on {order.deliveredAt}
-                </Message>
+                <Message variant='success'>Delivered on {order.deliveredAt}</Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
               )}
@@ -158,17 +154,10 @@ const OrderScreen = () => {
                     <ListGroup.Item key={index}>
                       <Row>
                         <Col md={1}>
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fluid
-                            rounded
-                          />
+                          <Image src={item.image} alt={item.name} fluid rounded />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>
+                          <Link to={`/product/${item.product}`}>{item.name}</Link>
                           {item.discount && (
                             <p className="text-danger">
                               Discount: {item.discount}% off
@@ -243,6 +232,23 @@ const OrderScreen = () => {
                   </Col>
                 </Row>
               </ListGroup.Item>
+
+              {order.paymentMethod === 'CashOnDelivery' && !order.isPaid && order.isDelivered && (
+                <ListGroup.Item>
+                  <Button
+                    type='button'
+                    className='btn btn-block'
+                    onClick={() => {
+                      // Xử lý thanh toán khi nhận hàng
+                      // Đặt logic thanh toán tại đây
+                      // Ví dụ: dispatch hoặc gọi một hàm xử lý thanh toán
+                    }}
+                  >
+                    Pay on Delivery
+                  </Button>
+                </ListGroup.Item>
+              )}
+
               {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}

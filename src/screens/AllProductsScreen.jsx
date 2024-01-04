@@ -1,3 +1,5 @@
+// AllProductsScreen.jsx
+
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useGetProductsByBrandQuery } from '../slices/productsApiSlice';
@@ -6,35 +8,43 @@ import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
+import Paginate from '../components/Paginate';
 import './styles/AllProductsScreen.css';
 
 const AllProductsScreen = () => {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [pageNumber, setPageNumber] = useState(1);
+
   const { data, isLoading, error, refetch } = useGetProductsByBrandQuery({
     brand: selectedBrand,
-    pageNumber: 1,
+    pageNumber,
     sortOrder,
   });
 
   useEffect(() => {
     refetch();
-  }, [refetch, selectedBrand, sortOrder]);
+  }, [refetch, selectedBrand, sortOrder, pageNumber]);
 
   const handleBrandChange = (brand) => {
     setSelectedBrand(brand);
+    setPageNumber(1); // Reset page number when brand changes
   };
 
   const handleSortChange = (order) => {
     setSortOrder(order);
   };
 
+  const handlePageChange = (newPageNumber) => {
+    setPageNumber(newPageNumber);
+  };
+
   return (
     <>
       <Meta title="All Product" />
-      <h1>All Product</h1>
+      <h1>All PRODUCT</h1>
       <Row>
-        <Col md={{ span:9, offset: 9 }}>
+        <Col md={{ span: 9, offset: 3 }}>
           <div className="brand-select-container">
             <label className="brand-select-label">Select Brand:</label>
             <select
@@ -65,6 +75,14 @@ const AllProductsScreen = () => {
           </div>
         </Col>
       </Row>
+
+      {/* Pagination controls */}
+      <Paginate
+        currentPage={pageNumber}
+        totalPages={data?.pages}
+        onPageChange={handlePageChange}
+      />
+
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -73,16 +91,20 @@ const AllProductsScreen = () => {
         </Message>
       ) : (
         <Row>
-          {data.products
-            .slice()
-            .sort((a, b) => (sortOrder === 'asc' ? a.price - b.price : b.price - a.price))
-            .map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
+          {data.products.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+          ))}
         </Row>
       )}
+
+      {/* Pagination controls */}
+      <Paginate
+        currentPage={pageNumber}
+        totalPages={data?.pages}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };

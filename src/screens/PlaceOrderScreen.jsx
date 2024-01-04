@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { Button, Row, Col, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Loader from '../components/Loader';
 import { useCreateOrderMutation } from '../slices/ordersApiSlice';
 import { clearCartItems } from '../slices/cartSlice';
+import { ListGroup } from 'react-bootstrap';
 
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const PlaceOrderScreen = () => {
     }
     return price.toFixed(2);
   };
+
   const placeOrderHandler = async () => {
     try {
       console.log('Placing order...');
@@ -50,7 +52,7 @@ const PlaceOrderScreen = () => {
 
       const res = await createOrder({
         orderItems: cart.cartItems.map((item) => ({
-          _id: item._id,  // Ensure each order item has a valid _id
+          _id: item._id,
           product: item.product,
           name: item.name,
           qty: item.qty,
@@ -80,109 +82,110 @@ const PlaceOrderScreen = () => {
     }
   };
 
-
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>Shipping</h2>
-              <p>
+          <Card>
+            <Card.Body style={{ backgroundColor: '#f8f9fa', padding: '20px' }}>
+              <p style={{ marginBottom: '0' }}>
                 <strong>Address:</strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
                 {cart.shippingAddress.postalCode},{' '}
                 {cart.shippingAddress.country}
               </p>
-            </ListGroup.Item>
+            </Card.Body>
+          </Card>
 
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <strong>Method: </strong>
-              {cart.paymentMethod}
-            </ListGroup.Item>
+          {cart.paymentMethod === 'CashOnDelivery' && (
+            <Card className="mt-3">
+              <Card.Body>
+                <h2>Payment Method</h2>
+                <strong>Method: Cash On Delivery</strong>
+              </Card.Body>
+            </Card>
+          )}
 
-            <ListGroup.Item>
+          <Card className="mt-3">
+            <Card.Body>
               <h2>Order Items</h2>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
-                <ListGroup variant='flush'>
+                <Card>
                   {cart.cartItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
+                    <Card.Body key={index} className="border-bottom">
                       <Row>
-                        <Col md={1}>
-                          <Image
+                        <Col md={2}>
+                          <img
                             src={item.image}
                             alt={item.name}
-                            fluid
-                            rounded
+                            className="img-fluid"
                           />
                         </Col>
-                        <Col>
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>
+                        <Col md={6}>
+                          <Link to={`/product/${item.product}`}>{item.name}</Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.price}
+                          {item.qty} x ${item.price} = ${item.qty * item.price}
                         </Col>
                       </Row>
-                    </ListGroup.Item>
+                    </Card.Body>
                   ))}
-                </ListGroup>
+                </Card>
               )}
-            </ListGroup.Item>
-          </ListGroup>
+            </Card.Body>
+          </Card>
         </Col>
+
         <Col md={4}>
           <Card>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <h2>Order Summary</h2>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Items Price</Col>
-                  <Col>${cart.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping Price</Col>
-                  <Col>${cart.shippingPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Tax</Col>
-                  <Col>${cart.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Total </Col>
-                  <Col>${cart.totalPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {error && (
-                  <Message variant='danger'>{error.data.message}</Message>
-                )}
-              </ListGroup.Item>
-              <ListGroup.Item>
+            <Card.Body>
+              <h2>Order Summary</h2>
+              <ListGroup variant='flush'>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Items Price</Col>
+                    <Col>${cart.itemsPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Shipping Price</Col>
+                    <Col>${cart.shippingPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Tax</Col>
+                    <Col>${cart.taxPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Total</Col>
+                    <Col>${cart.totalPrice}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  {error && (
+                    <Message variant='danger'>{error.data.message}</Message>
+                  )}
+                </ListGroup.Item>
+                <ListGroup.Item>
                 <Button
-                  type='button'
-                  className='btn-block'
-                  disabled={cart.cartItems === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
-                {isLoading && <Loader />}
-              </ListGroup.Item>
-            </ListGroup>
+  type='button'
+  className='btn btn-block mx-auto btn-lg' // Added mx-auto class for horizontal centering and btn-lg for larger size
+  disabled={cart.cartItems === 0}
+  onClick={placeOrderHandler}
+  style={{ width: '100%',alignItems:'center' }} // Added inline style for a custom width (adjust as needed)
+>
+  Place Order
+</Button>     {isLoading && <Loader />}
+                </ListGroup.Item>
+              </ListGroup>
+            </Card.Body>
           </Card>
         </Col>
       </Row>

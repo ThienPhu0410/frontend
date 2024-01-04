@@ -5,13 +5,15 @@
   
   /* Style for the search input */
   .search-input {
+    margin-top: 18px;
     border-top-left-radius: 20px !important;
     border-bottom-left-radius: 20px !important;
-    width: 250px; /* Adjust width as needed */
+    width: 200px;
   }
   
-  /* Style for the search button */
   .search-button {
     border-top-right-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
+    color: black;
+    width:10px;
   }

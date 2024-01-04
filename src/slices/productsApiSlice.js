@@ -95,13 +95,10 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }),
 
     getAllProducts: builder.query({
-      query: ({ sortOrder } = {}) => {
-        const params = { sortOrder };
-        return {
-          url: `${PRODUCTS_URL}/all`,
-          params,
-        };
-      },
+      query: ({ sortOrder } = {}) => ({
+        url: `${PRODUCTS_URL}/all`,
+        params: { sortOrder },
+      }),
       keepUnusedDataFor: 5,
       providesTags: ['Products'],
     }),

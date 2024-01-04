@@ -1,5 +1,3 @@
-// RegisterScreen.js
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
@@ -9,7 +7,7 @@ import FormContainer from '../components/FormContainer';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaCheck, FaUserPlus } from 'react-icons/fa'; // Import icons
 import '../styles/RegisterScreen.css';
 
 const RegisterScreen = () => {
@@ -58,10 +56,15 @@ const RegisterScreen = () => {
 
   return (
     <FormContainer>
-      <h1 className='d-flex align-items-center justify-content-center'>Register</h1>
+      <h1 className='d-flex align-items-center justify-content-center'>
+        REGISTER
+      </h1>
       <Form onSubmit={submitHandler} className='register-form'>
         <Form.Group className='my-2' controlId='name'>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>
+            <FaUser className='mr-2' />
+            Name
+          </Form.Label>
           <Form.Control
             type='name'
             placeholder='Enter name'
@@ -71,7 +74,10 @@ const RegisterScreen = () => {
         </Form.Group>
 
         <Form.Group className='my-2' controlId='email'>
-          <Form.Label>Email</Form.Label>
+          <Form.Label>
+            <FaEnvelope className='mr-2' />
+            Email
+          </Form.Label>
           <Form.Control
             type='email'
             placeholder='Enter email'
@@ -81,7 +87,10 @@ const RegisterScreen = () => {
         </Form.Group>
 
         <Form.Group className='my-2' controlId='password'>
-          <Form.Label>Password</Form.Label>
+          <Form.Label>
+            <FaLock className='mr-2' />
+            Password
+          </Form.Label>
           <InputGroup>
             <Form.Control
               type={showPassword ? 'text' : 'password'}
@@ -92,8 +101,12 @@ const RegisterScreen = () => {
             />
           </InputGroup>
         </Form.Group>
+
         <Form.Group className='my-2' controlId='confirmPassword'>
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>
+            <FaLock className='mr-2' />
+            Confirm Password
+          </Form.Label>
           <Form.Control
             type={showPassword ? 'text' : 'password'}
             placeholder='Confirm password'

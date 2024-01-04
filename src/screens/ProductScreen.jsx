@@ -64,14 +64,12 @@ const ProductScreen = () => {
       toast.error(err?.data?.message || err.error);
     }
   };
-
-  // Calculate discounted price based on discount percentage
   const calculateDiscountedPrice = () => {
     if (product.discount) {
       const discountAmount = (product.discount / 100) * product.price;
       return (product.price - discountAmount).toFixed(2);
     }
-    return null; // If there is no discount
+    return null; 
   };
 
   return (
@@ -159,25 +157,29 @@ const ProductScreen = () => {
 
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
-                      <Row>
-                        <Col>Quantity</Col>
-                        <Col>
-                          <Form.Control
-                            as='select'
-                            value={qty}
-                            onChange={(e) => setQty(Number(e.target.value))}
+                    <Row>
+                      <Col>Quantity</Col>
+                      <Col>
+                        <div className="d-flex align-items-center">
+                          <Button
+                            variant="light"
+                            onClick={() => setQty(Math.max(1, qty - 1))}
+                            disabled={qty === 1}
                           >
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
+                            -
+                          </Button>
+                          <div className="mx-2">{qty}</div>
+                          <Button
+                            variant="light"
+                            onClick={() => setQty(Math.min(product.countInStock, qty + 1))}
+                            disabled={qty === product.countInStock}
+                          >
+                            +
+                          </Button>
+                        </div>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
                   )}
 
                   <ListGroup.Item>
@@ -266,7 +268,6 @@ const ProductScreen = () => {
                 </Card.Body>
               </Card>
             </Col>
-            {/* Additional information section */}
             <Col md={6}>
               <Card>
                 <Card.Body>

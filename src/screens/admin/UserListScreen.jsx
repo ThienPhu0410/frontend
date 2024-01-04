@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Form } from 'react-bootstrap';
 import { FaTrash, FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { useDeleteUserMutation, useGetUsersQuery } from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
-import errorImg from './styles/error.png'; // Update the path
+import errorImg from './styles/error.png';
 import './styles/UserListScreen.css';
 
 const UserListScreen = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
   const [deleteUser] = useDeleteUserMutation();
+  const [searchTerm, setSearchTerm] = useState('');
 
   const deleteHandler = async (id) => {
     if (window.confirm('Are you sure?')) {
@@ -24,8 +25,21 @@ const UserListScreen = () => {
     }
   };
 
+  const filteredUsers = (users || []).filter((user) =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
+      <div className="search-container">
+        <Form.Control
+          type="text"
+          placeholder="Search by name"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ height: '50px', width: '150px', marginLeft: "1px" }}
+        />
+      </div>
       <h1>Users</h1>
       {isLoading ? (
         <Loader />
@@ -45,7 +59,7 @@ const UserListScreen = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <tr key={user._id}>
                 <td>
                   <img

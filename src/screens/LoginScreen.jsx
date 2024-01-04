@@ -9,9 +9,9 @@ import FormContainer from '../components/FormContainer';
 import { useLoginMutation, useForgotPasswordMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import ForgotPasswordForm from './ForgotPasswordForm'; // Import the ForgotPasswordForm component
-import '../styles/LoginScreen.css'; // Import your custom styles
+import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa';
+import ForgotPasswordForm from './ForgotPasswordForm';
+import '../styles/LoginScreen.css'; 
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -62,11 +62,13 @@ const LoginScreen = () => {
 
   return (
     <FormContainer>
-      <h1 className='mb-4 d-flex justify-content-center align-items-center'>Log In</h1>
+      <h1 className='mb-4 text-center font-weight-bold' style={{ color: '#ff4f81' }}>
+        LOGIN
+      </h1>
 
       <Form onSubmit={submitHandler} className='login-form'>
         <Form.Group controlId='email' className='mb-3'>
-          <Form.Label>Email</Form.Label>
+          <Form.Label><FaEnvelope /> Email</Form.Label>
           <Form.Control
             type='email'
             placeholder='Enter your email'
@@ -76,7 +78,7 @@ const LoginScreen = () => {
         </Form.Group>
 
         <Form.Group controlId='password' className='mb-3'>
-          <Form.Label>Password</Form.Label>
+          <Form.Label><FaLock /> Password</Form.Label>
           <InputGroup>
             <Form.Control
               type={showPassword ? 'text' : 'password'}
@@ -94,15 +96,13 @@ const LoginScreen = () => {
                 className='password-toggle-checkbox'
               />
               <Form.Label className='password-toggle-label'>Show Password</Form.Label>
-              <span className='forgot-password-link' onClick={openForgotPasswordModal}>
-                Forgot Password?
-              </span>
+            
             </div>
           </InputGroup>
         </Form.Group>
 
         <Button disabled={isLoading} type='submit' variant='primary' className='mb-3'>
-          Log In
+          {isLoading ? 'Logging In...' : 'Login'}
         </Button>
 
         {isLoading && <Loader />}
@@ -116,6 +116,20 @@ const LoginScreen = () => {
           </Link>
         </Col>
       </Row>
+
+      <Row className='py-2 d-flex justify-content-center align-items-center forgot-password-container'>
+  <Col className='text-center'>
+    <span
+      className='forgot-password-link'
+      onClick={() => {
+        openForgotPasswordModal();
+        document.querySelector('.forgot-password-link').classList.add('clicked');
+      }}
+    >
+      Forgot Password?
+    </span>
+  </Col>
+</Row>
 
       <ForgotPasswordForm
         show={showForgotPassword}

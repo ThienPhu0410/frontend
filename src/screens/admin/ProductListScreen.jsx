@@ -8,28 +8,22 @@ import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import Paginate from '../../components/Paginate';
 import {
-  useGetProductsQuery,
+  useGetAllProductsQuery, // Updated import
   useDeleteProductMutation,
   useCreateProductMutation,
 } from '../../slices/productsApiSlice';
 import { toast } from 'react-toastify';
 import { Bar } from 'react-chartjs-2';
-
+import './styles/ProductListScreen.css';
 const ProductListScreen = () => {
   // State variables
-  const { pageNumber } = useParams();
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [chartData, setChartData] = useState(null);
 
   // API queries and mutations
-  const { data, isLoading, error, refetch } = useGetProductsQuery({
-    pageNumber,
-    brand: selectedBrand,
-    category: selectedCategory,
-    sortOrder,
-  });
+  const { data, isLoading, error, refetch } = useGetAllProductsQuery({ sortOrder });
 
   const [deleteProduct, { isLoading: loadingDelete }] = useDeleteProductMutation();
 
@@ -110,20 +104,22 @@ const ProductListScreen = () => {
             <option value='ACER'>ACER</option>
             <option value='ViewSonic'>VIEWSONIC</option>
             <option value='E-DRA'>E-DRA</option>
-            <option value='HP'>HP</option>        
-            </Form.Control>
+            <option value='HP'>HP</option>
+          </Form.Control>
         </Col>
         <Col>
-          <Form.Control
-            as='select'
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value=''>All Product</option>
-            <option value='Laptop'>Laptop</option>
-            <option value='Screen'>Screen</option>
-            <option value='PC'>Pc</option>
-          </Form.Control>
+        <Form.Control
+  as='select'
+  value={selectedCategory}
+  onChange={(e) => setSelectedCategory(e.target.value)}
+  className='category-select'
+>
+  <option value=''>All Products</option>
+  <option value='Laptop'>Laptops</option>
+  <option value='Screen'>Screens</option>
+  <option value='PC'>PCs</option>
+</Form.Control>
+
         </Col>
         <Col>
           <Button
@@ -134,9 +130,14 @@ const ProductListScreen = () => {
           </Button>
         </Col>
         <Col className='text-end'>
-          <Button className='my-3' onClick={createProductHandler}>
-            <FaPlus /> Create Product
-          </Button>
+        <Button
+  className='my-3 create-product-btn'
+  onClick={createProductHandler}
+>
+  <FaPlus className='plus-icon' />
+  <span>Create Product</span>
+</Button>
+
         </Col>
       </Row>
 
@@ -199,8 +200,6 @@ const ProductListScreen = () => {
               <Bar data={chartData} />
             </div>
           )}
-
-          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </>
       )}
     </>

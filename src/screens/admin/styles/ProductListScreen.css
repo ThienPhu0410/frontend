@@ -1,0 +1,126 @@
+/* Add this CSS to your component or external stylesheet */
+
+/* Container styles */
+.container {
+    padding: 20px;
+  }
+  
+  /* Header styles */
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #007bff; /* Change the color to your preference */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* Form styles */
+  .form-control {
+    margin-bottom: 10px;
+  }
+  
+  /* Button styles */
+  .btn {
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #007bff; /* Change the color to your preference */
+  }
+  
+  /* Table styles */
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  /* Image styles */
+  .image-container {
+    max-width: 50px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  
+  /* Chart styles */
+  .chart-container {
+    margin-top: 20px;
+  }
+  
+  /* Loader styles */
+  .loader-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+  }
+  
+  /* Message styles */
+  .message {
+    margin-top: 20px;
+  }
+  
+  /* Animation styles */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease;
+  }
+
+  /* Add this CSS to your component or external stylesheet */
+
+/* Button styles */
+.create-product-btn {
+    display: flex;
+    align-items: center;
+    background-color: #28a745; /* Green color, change it to your preference */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-product-btn:hover {
+    background-color: #218838; /* Darker green color on hover */
+  }
+  
+  /* Icon styles */
+  .plus-icon {
+    margin-right: 0px;
+  }
+  
+  /* Text styles */
+  .create-product-btn span {
+    font-weight: bold;
+  }
+  .category-select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ced4da; /* Bootstrap's default border color */
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .category-select:hover,
+  .category-select:focus {
+    border-color: #007bff; /* Change the color to your preference */
+  }
+  
+  /* Option styles */
+  .category-select option {
+    font-size: 14px;
+  }
+  
+  /* Hover effect for options */
+  .category-select option:hover {
+    background-color: #f8f9fa; /* Bootstrap's default background color */
+  }

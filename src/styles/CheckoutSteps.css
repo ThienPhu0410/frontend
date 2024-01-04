@@ -1,0 +1,24 @@
+/* Styling for the entire checkout steps component */
+.checkout-steps {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Styling for each individual step link */
+  .checkout-step-link {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  /* Styling for disabled step links */
+  .checkout-step-link-disabled {
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  /* Optional: Add hover effect for step links */
+  .checkout-step-link:hover {
+    text-decoration: underline;
+  }
+  
